@@ -1,5 +1,6 @@
 package com.udacity.shoestore.models
 
+import android.icu.text.AlphabeticIndex
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +12,7 @@ private const val TAG = "MainViewModel"
 
 class MainViewModel : ViewModel() {
 
-    private val _shoesList = MutableLiveData<List<Shoe>>()
+    private val _shoesList = MutableLiveData<List<Shoe>>(emptyList())
     val shoesList: LiveData<List<Shoe>>
         get() = _shoesList
 
@@ -21,11 +22,20 @@ class MainViewModel : ViewModel() {
 //        get() = _shoesList!!
 
     fun addShoe(shoe: Shoe) {
-        _shoesList.value = listOf(shoe)
+
+        _shoesList.value = _shoesList.value!! + shoe
     }
 
     init {
+
         Timber.tag(TAG).i(": MainViewModel created")
+        val testShoe1 = Shoe(
+            "Test Shoe 1",
+            47.0, "dummy shoe company", "Dummy shoe description"
+        )
+
+        addShoe(testShoe1)
+
 
 //
 //        _shoesList.value?.add(testShoe1)

@@ -23,7 +23,7 @@ class ShoeListFragment : Fragment(), MenuProvider {
 
     private val mainViewModel: MainViewModel by activityViewModels()
 
-    private lateinit var showRowBinding: ShoeRowLayoutBinding
+//    private lateinit var showRowBinding: ShoeRowLayoutBinding
 
 
     private val TAG = "ShoeListFragment"
@@ -41,8 +41,6 @@ class ShoeListFragment : Fragment(), MenuProvider {
 
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.CREATED)
 
-        showRowBinding =
-            DataBindingUtil.inflate(layoutInflater,R.layout.shoe_row_layout,null,false)
 
 
         return binding.root
@@ -51,30 +49,18 @@ class ShoeListFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val testShoe1 = Shoe(
-            "Test Shoe 1",
-
-            47.0, "dummy shoe company", "Dummy shoe description"
-        )
-        val testShoe2 = Shoe(
-            "Test Shoe 2",
-            40.0, "dummy shoe company", "Dummy shoe description"
-        )
-
-
-
-        showRowBinding.newShoe = testShoe1
 
 
         mainViewModel.shoesList.observe(viewLifecycleOwner) {
 
-            Timber.tag(TAG).i("onViewCreated: $it")
-
             for (shoe in it) {
+                val showRowBinding =
+                    ShoeRowLayoutBinding.inflate(layoutInflater)
                 showRowBinding.newShoe = shoe
-
                 binding.shoeListLinearLayout.addView(showRowBinding.root)
             }
+
+            Timber.tag(TAG).i("shoesList Size: ${it.size}")
 
 
         }
