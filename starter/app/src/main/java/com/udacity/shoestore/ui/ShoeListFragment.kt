@@ -51,14 +51,9 @@ class ShoeListFragment : Fragment(), MenuProvider {
 
 
 
-        mainViewModel.shoesList.observe(viewLifecycleOwner) {
+        mainViewModel.shoes.observe(viewLifecycleOwner) {
 
-            for (shoe in it) {
-                val showRowBinding =
-                    ShoeRowLayoutBinding.inflate(layoutInflater)
-                showRowBinding.newShoe = shoe
-                binding.shoeListLinearLayout.addView(showRowBinding.root)
-            }
+            displayShoes(it)
 
             Timber.tag(TAG).i("shoesList Size: ${it.size}")
 
@@ -69,10 +64,27 @@ class ShoeListFragment : Fragment(), MenuProvider {
 
 
 
+
         binding.floatingActionButton.setOnClickListener {
-            Timber.i(mainViewModel.shoesList.value?.joinToString(separator = "\n"))
+            Timber.i(mainViewModel.shoes.value?.joinToString(separator = "\n"))
             findNavController().navigate(ShoeListFragmentDirections.actionShoeListFragmentToDetailsFragment())
         }
+    }
+
+    private fun displayShoes(shoes: List<Shoe>) {
+        shoes.forEach { displayShoe(it) }
+    }
+
+    private fun displayShoe(shoe: Shoe) {
+        val showRowBinding =
+            ShoeRowLayoutBinding.inflate(layoutInflater)
+
+        showRowBinding.nameLabel.text = getString(R.string.string_value, "Shoe name:", shoe.name)
+        showRowBinding.companyLabel.text = getString(R.string.string_value, "Company name:", shoe.company)
+        showRowBinding.sizeLabel.text = getString(R.string.double_value, "Shoe size:", shoe.size)
+        showRowBinding.descLabel.text = getString(R.string.string_value, "Description:", shoe.description)
+
+        binding.shoeListLinearLayout.addView(showRowBinding.root)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

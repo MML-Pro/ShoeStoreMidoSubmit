@@ -104,4 +104,6 @@
     <string name="shoe_name">Shoe Name</string>
     <string name="log_out">Log out</string>
     <string name="welcome_message">Hi %1$s, please click to following button to continue.</string>
+    <string name="string_value">%s %s</string>
+    <string name="double_value">%s %.1f</string>
 </resources>

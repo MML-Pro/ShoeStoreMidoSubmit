@@ -12,9 +12,16 @@ private const val TAG = "MainViewModel"
 
 class MainViewModel : ViewModel() {
 
-    private val _shoesList = MutableLiveData<List<Shoe>>(emptyList())
-    val shoesList: LiveData<List<Shoe>>
+
+    private val _shoesList = MutableLiveData<List<Shoe>>()
+    val shoes: LiveData<List<Shoe>>
         get() = _shoesList
+
+    private val _eventCloseScreen = MutableLiveData<Boolean?>()
+    val eventCloseScreen: LiveData<Boolean?>
+        get() = _eventCloseScreen
+
+    lateinit var currentShoe: Shoe
 
     //the following method not working with me
 
@@ -23,23 +30,44 @@ class MainViewModel : ViewModel() {
 
     fun addShoe(shoe: Shoe) {
 
+        currentShoe = shoe
         _shoesList.value = _shoesList.value!! + shoe
+        _eventCloseScreen.value = true
     }
 
     init {
 
-        Timber.tag(TAG).i(": MainViewModel created")
-        val testShoe1 = Shoe(
-            "Test Shoe 1",
-            47.0, "dummy shoe company", "Dummy shoe description"
-        )
+        _shoesList.value = createSampleShoes()
 
-        addShoe(testShoe1)
+//        addShoe(testShoe1)
 
 
 //
 //        _shoesList.value?.add(testShoe1)
 //        _shoesList.value?.add(testShoe2)
+    }
+
+
+    private fun createSampleShoes(): List<Shoe> {
+        val tempShoes = mutableListOf<Shoe>()
+
+        tempShoes.add(Shoe("Dummy Shoe 1", 31.0, "Dummy Company", "This is a dummmy desc"))
+        tempShoes.add(Shoe("Dummy Shoe 2", 40.0, "Dummy Company", "This is a dummmy desc"))
+
+        return tempShoes
+    }
+
+
+    fun onEventCloseComplete() {
+        _eventCloseScreen.value = null
+    }
+//
+//    fun createNewShoe() {
+//        currentShoe = Shoe("", 0.0, "", "")
+//    }
+
+    fun close() {
+        _eventCloseScreen.value = true
     }
 
 

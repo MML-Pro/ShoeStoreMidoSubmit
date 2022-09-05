@@ -2,13 +2,12 @@ package com.udacity.shoestore.ui
 
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentDetailsBinding
@@ -42,8 +41,10 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.mainViewModel = this.mainViewModel
 
+        binding.mainViewModel = this.mainViewModel
+//        mainViewModel.createNewShoe()
+//
         binding.saveButton.setOnClickListener {
 
             if (TextUtils.isEmpty(binding.shoeNameED.text.toString())) {
@@ -62,15 +63,22 @@ class DetailsFragment : Fragment() {
                     company = binding.companyNameED.text.toString(),
                     description = binding.descriptionED.text.toString()
                 )
-                mainViewModel.addShoe(newShoe)
-                Timber.tag(TAG).i(newShoe.toString())
-                findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToShoeListFragment())
-            }
+                binding.newShoe = newShoe
 
+                Timber.tag(TAG).i(newShoe.toString())
+
+                mainViewModel.addShoe(newShoe)
+
+            }
         }
 
-        binding.cancelButton.setOnClickListener {
-            findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToShoeListFragment())
+        mainViewModel.eventCloseScreen.observe(viewLifecycleOwner) { close ->
+           close?.let {
+               if (it) {
+                   findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToShoeListFragment())
+                   mainViewModel.onEventCloseComplete()
+               }
+           }
         }
 
     }

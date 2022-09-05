@@ -6,13 +6,20 @@
     <data>
 
         <variable
-            name="mainViewModel"
-            type="com.udacity.shoestore.models.MainViewModel" />
+            name="newShoe"
+            type="com.udacity.shoestore.models.Shoe" />
 
         <variable
-            name="shoeData"
-            type="com.udacity.shoestore.models.Shoe" />
+            name="mainViewModel"
+            type="com.udacity.shoestore.models.MainViewModel" />
     </data>
+
+    <!-- Comment in XML
+
+no much different here I can use ConstraintLayout or linearlayout
+
+
+-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -71,6 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="Cancel"
+            android:onClick="@{ () -> mainViewModel.close() }"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"

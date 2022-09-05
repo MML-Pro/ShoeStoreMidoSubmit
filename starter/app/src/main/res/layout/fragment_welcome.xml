@@ -7,6 +7,13 @@
 
     </data>
 
+    <!-- Comment in XML
+
+no much different here I can use ConstraintLayout or linearlayout
+
+
+-->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
