@@ -28,11 +28,9 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment?
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
 
-        if (navHostFragment != null) {
-            navController = navHostFragment.navController
-        }
+        navController = navHostFragment.navController
 
 //        setContentView(R.layout.activity_main)
         Timber.plant(Timber.DebugTree())
