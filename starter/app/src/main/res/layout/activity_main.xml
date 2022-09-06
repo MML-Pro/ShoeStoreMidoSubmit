@@ -7,6 +7,15 @@
 
     </data>
 
+    <!-- Comment in XML
+
+The appbar and toolbar required to be inside CoordinatorLayout
+
+and below it I add FragmentContainerView that represent nav graph
+
+
+-->
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

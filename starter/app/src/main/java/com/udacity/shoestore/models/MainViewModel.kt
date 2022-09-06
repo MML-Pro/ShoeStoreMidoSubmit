@@ -1,5 +1,6 @@
 package com.udacity.shoestore.models
 
+import android.accounts.AuthenticatorDescription
 import android.icu.text.AlphabeticIndex
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -14,24 +15,30 @@ class MainViewModel : ViewModel() {
 
 
     private val _shoesList = MutableLiveData<List<Shoe>>()
-    val shoes: LiveData<List<Shoe>>
+    val shoeList: LiveData<List<Shoe>>
         get() = _shoesList
 
     private val _eventCloseScreen = MutableLiveData<Boolean?>()
     val eventCloseScreen: LiveData<Boolean?>
         get() = _eventCloseScreen
 
-    lateinit var currentShoe: Shoe
+    lateinit var currentShoe:Shoe
+
 
     //the following method not working with me
 
 //    val shoesList: LiveData<MutableList<Shoe>>
 //        get() = _shoesList!!
 
-    fun addShoe(shoe: Shoe) {
+    fun addShoe(shoeName: String,  shoeSize: Double, shoeCompany: String, shoeDescription: String) {
 
-        currentShoe = shoe
-        _shoesList.value = _shoesList.value!! + shoe
+         currentShoe = Shoe(
+            name = shoeName,
+            size = shoeSize,
+            company = shoeCompany,
+            description = shoeDescription
+        )
+        _shoesList.value = _shoesList.value!! + currentShoe
         _eventCloseScreen.value = true
     }
 

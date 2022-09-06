@@ -3,63 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+    <!-- Comment in XML
+    I used linearLayout as root view it can be done by
+    relativeLayout also
+    , then
+    CoordinatorLayout that needed for FAB, and NestedScrollView
+            -->
 
-        <variable
-            name="newShoe"
-            type="com.udacity.shoestore.models.Shoe" />
-
-    </data>
 
     <LinearLayout
         android:id="@+id/shoeListRootView"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/shoeListLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.ShoeListFragment">
+        android:orientation="vertical">
 
 
-                <androidx.core.widget.NestedScrollView
-                    android:id="@+id/scrollView"
-                    android:layout_marginTop="20dp"
-                    android:fillViewport="true"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/shoeListLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.ShoeListFragment">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:id="@+id/shoeListLinearLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:id="@+id/shoeListLinearLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
 
-                    </LinearLayout>
-                </androidx.core.widget.NestedScrollView>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="end|bottom"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:clickable="true"
-            android:contentDescription="@string/button_add_shoe"
-            android:focusable="true"
-            android:src="@drawable/ic_baseline_add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:clickable="true"
+                android:contentDescription="@string/button_add_shoe"
+                android:focusable="true"
+                android:src="@drawable/ic_baseline_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </LinearLayout>
 </layout>

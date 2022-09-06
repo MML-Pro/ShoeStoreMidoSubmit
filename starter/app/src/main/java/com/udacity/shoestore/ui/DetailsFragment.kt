@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -42,44 +43,47 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val shoeData = Shoe("", 0.0, "", "")
+
         binding.mainViewModel = this.mainViewModel
+        binding.newShoe = shoeData
 //        mainViewModel.createNewShoe()
 //
-        binding.saveButton.setOnClickListener {
+//        binding.saveButton.setOnClickListener {
+//
+//            if (TextUtils.isEmpty(binding.shoeNameED.text.toString())) {
+//                binding.shoeNameED.error = "required text"
+//            } else if (TextUtils.isEmpty(binding.shoeSizeED.text.toString())) {
+//                binding.shoeSizeED.error = "required text"
+//            } else if (TextUtils.isEmpty(binding.companyNameED.text.toString())) {
+//                binding.companyNameED.error = "required text"
+//            } else if (TextUtils.isEmpty(binding.descriptionED.text.toString())) {
+//                binding.descriptionED.error = "required text"
+//            } else {
+//
+//                val newShoe = Shoe(
+//                    name = binding.shoeNameED.text.toString(),
+//                    size = binding.shoeSizeED.text.toString().toDouble(),
+//                    company = binding.companyNameED.text.toString(),
+//                    description = binding.descriptionED.text.toString()
+//                )
 
-            if (TextUtils.isEmpty(binding.shoeNameED.text.toString())) {
-                binding.shoeNameED.error = "required text"
-            } else if (TextUtils.isEmpty(binding.shoeSizeED.text.toString())) {
-                binding.shoeSizeED.error = "required text"
-            } else if (TextUtils.isEmpty(binding.companyNameED.text.toString())) {
-                binding.companyNameED.error = "required text"
-            } else if (TextUtils.isEmpty(binding.descriptionED.text.toString())) {
-                binding.descriptionED.error = "required text"
-            } else {
+//
+//
+//            }
+//        }
 
-                val newShoe = Shoe(
-                    name = binding.shoeNameED.text.toString(),
-                    size = binding.shoeSizeED.text.toString().toDouble(),
-                    company = binding.companyNameED.text.toString(),
-                    description = binding.descriptionED.text.toString()
-                )
-                binding.newShoe = newShoe
 
-                Timber.tag(TAG).i(newShoe.toString())
-
-                mainViewModel.addShoe(newShoe)
-
+        mainViewModel.eventCloseScreen.observe(viewLifecycleOwner) { close ->
+            close?.let {
+                if (it) {
+                    findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToShoeListFragment())
+                    mainViewModel.onEventCloseComplete()
+                }
             }
         }
 
-        mainViewModel.eventCloseScreen.observe(viewLifecycleOwner) { close ->
-           close?.let {
-               if (it) {
-                   findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToShoeListFragment())
-                   mainViewModel.onEventCloseComplete()
-               }
-           }
-        }
-
     }
+
+
 }

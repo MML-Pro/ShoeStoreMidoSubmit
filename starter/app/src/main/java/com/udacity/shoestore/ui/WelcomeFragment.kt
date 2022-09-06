@@ -25,10 +25,7 @@ class WelcomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
 
-        binding = DataBindingUtil.inflate(
-            layoutInflater, R.layout.fragment_welcome,
-            container, false
-        )
+        binding = FragmentWelcomeBinding.inflate(layoutInflater,container,false)
 
 
         return binding.root
